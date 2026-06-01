@@ -14,7 +14,9 @@ Terraform v1.15.5 installed successfully on Windows.
 
 ### Screenshot
 
-![Terraform Version](evidence/terraform_version.png)
+![Terraform Version](../evidence/terraform_version.png)
+
+---
 
 ## 2. Terraform Initialization
 
@@ -30,7 +32,9 @@ Terraform initialized successfully.
 
 ### Screenshot
 
-![Terraform Init](evidence/terraform_init.png)
+![Terraform Init](../evidence/terraform_init.png)
+
+---
 
 ## 3. Configuration Validation
 
@@ -46,7 +50,9 @@ Success! The configuration is valid.
 
 ### Screenshot
 
-![Terraform Validate](evidence/terraform_validate.png)
+![Terraform Validate](../evidence/terraform_validate.png)
+
+---
 
 ## 4. Terraform Plan
 
@@ -62,7 +68,9 @@ Terraform generated an execution plan successfully.
 
 ### Screenshot
 
-![Terraform Plan](evidence/terraform_plan.png)
+![Terraform Plan](../evidence/terraform_plan.png)
+
+---
 
 ## 5. Terraform Apply
 
@@ -78,8 +86,11 @@ Terraform applied successfully.
 
 ### Screenshot
 
-![Terraform Apply](evidence/terraform_apply.png)
+![Terraform Apply](../evidence/terraform_apply.png)
 
+---
+
+## 6. Terraform State File
 
 ### File
 
@@ -87,4 +98,4 @@ terraform.tfstate
 
 ### Screenshot
 
-![Terraform State](evidence/terraform_tfstate.png)
+![Terraform State](../evidence/terraform_tfstate.png)
