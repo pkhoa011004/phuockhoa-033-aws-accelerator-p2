@@ -1,0 +1,26 @@
+name: W9 GitOps CI
+
+on:
+  pull_request:
+    paths:
+    - "Cloud-DevOps/W9/day-a/**"
+  push:
+    branches:
+    - main
+    paths:
+    - "Cloud-DevOps/W9/day-a/**"
+
+jobs:
+  validate-manifests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Validate Kubernetes YAML client-side
+      run: |
+        kubectl apply --dry-run=client -f Cloud-DevOps/W9/day-a/k8s/web.yaml
+
+    - name: Explain GitOps deploy step
+      run: |
+        echo "CI validates and updates Git. ArgoCD deploys from Git into the cluster."

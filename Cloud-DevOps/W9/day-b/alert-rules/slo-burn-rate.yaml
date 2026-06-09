@@ -1,0 +1,51 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: web-slo-burn-rate
+  namespace: w9-observability
+  labels:
+    app: web
+spec:
+  groups:
+  - name: web-slo.rules
+    rules:
+    - alert: WebFastBurnRate
+      expr: |
+        (
+          sum(rate(http_requests_total{app="web",status=~"5.."}[5m]))
+          /
+          sum(rate(http_requests_total{app="web"}[5m]))
+        ) > (14.4 * 0.001)
+        and
+        (
+          sum(rate(http_requests_total{app="web",status=~"5.."}[1h]))
+          /
+          sum(rate(http_requests_total{app="web"}[1h]))
+        ) > (14.4 * 0.001)
+      for: 2m
+      labels:
+        severity: critical
+        slo: availability-99.9
+      annotations:
+        summary: Web service is burning error budget too fast
+        description: Error budget burn rate is high in both 5m and 1h windows.
+    - alert: WebSlowBurnRate
+      expr: |
+        (
+          sum(rate(http_requests_total{app="web",status=~"5.."}[30m]))
+          /
+          sum(rate(http_requests_total{app="web"}[30m]))
+        ) > (6 * 0.001)
+        and
+        (
+          sum(rate(http_requests_total{app="web",status=~"5.."}[6h]))
+          /
+          sum(rate(http_requests_total{app="web"}[6h]))
+        ) > (6 * 0.001)
+      for: 15m
+      labels:
+        severity: warning
+        slo: availability-99.9
+      annotations:
+        summary: Web service is steadily burning error budget
+        description: Error budget burn rate is elevated in both 30m and 6h windows.

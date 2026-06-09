@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: web
+  namespace: w9
+  labels:
+    app: web
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: nginx:1.27
+        ports:
+        - name: http
+          containerPort: 80
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause:
+          duration: 2m
+      - analysis:
+          templates:
+          - templateName: web-success-rate
+      - setWeight: 50
+      - pause:
+          duration: 2m
+      - analysis:
+          templates:
+          - templateName: web-success-rate
+      - setWeight: 100
